@@ -79,7 +79,7 @@
       background: #00c2cc;
     }
 
-    #gameOverModal {
+    #gameOverModal, #startModal {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.95);
@@ -95,7 +95,7 @@
       text-shadow: 0 0 12px #00f2ff;
     }
 
-    #gameOverModal button {
+    #gameOverModal button, #startModal button {
       margin-top: 20px;
       background: #00f2ff;
       color: #000;
@@ -108,7 +108,7 @@
       box-shadow: 0 0 12px #00f2ff;
     }
 
-    #gameOverModal button:hover {
+    #gameOverModal button:hover, #startModal button:hover {
       background: #00c2cc;
     }
   </style>
@@ -116,6 +116,7 @@
 <body>
   <div id="score">Score: 0</div>
   <canvas id="gameCanvas"></canvas>
+
   <div id="controls">
     <button class="btn" id="leftBtn">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -128,12 +129,31 @@
       </svg>
     </button>
   </div>
+
   <div id="gameOverModal">
     <div id="gameOverText">Game Over! Final Score: 0</div>
     <button id="restartBtn">Restart</button>
   </div>
+
+  <div id="startModal">
+    <div><h2>Welcome to Pixel Racer X</h2>
+    <p>🕹️ Use Left and Right arrows or tap buttons to steer.<br>🚗 Avoid oncoming cars.<br>🏁 Survive as long as you can!</p></div>
+    <button id="startBtn">Start Game</button>
+  </div>
+
   <script>
-        const canvas = document.getElementById('gameCanvas');
+    const startModal = document.getElementById('startModal');
+    const startBtn = document.getElementById('startBtn');
+    startModal.style.display = 'flex';
+
+    startBtn.addEventListener('click', () => {
+      startModal.style.display = 'none';
+      if (typeof init === 'function') init();
+      if (typeof startObstacleGeneration === 'function') startObstacleGeneration();
+      if (typeof loop === 'function') loop();
+    });
+
+    const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const scoreDisplay = document.getElementById('score');
     const gameOverModal = document.getElementById('gameOverModal');
@@ -167,7 +187,7 @@
         height: canvas.height * carRatio.height,
         x: (canvas.width - (canvas.width * carRatio.width)) / 2,
         y: canvas.height - (canvas.height * carRatio.height) - 10,
-        speed: 10,
+        speed: 8,
         color: '#00c2ff'
       };
       score = 0;
