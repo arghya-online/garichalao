@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GariChalao</title>
+  <title>Pixel Racer X</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     * {
@@ -58,14 +58,21 @@
     .btn {
       width: 64px;
       height: 64px;
-      font-size: 26px;
-      font-weight: bold;
       background: #00f2ff;
       border: none;
-      color: #000;
       border-radius: 12px;
       box-shadow: 0 0 10px #00f2ff;
       transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .btn svg {
+      width: 32px;
+      height: 32px;
+      fill: #000;
     }
 
     .btn:active, .btn:hover {
@@ -110,15 +117,23 @@
   <div id="score">Score: 0</div>
   <canvas id="gameCanvas"></canvas>
   <div id="controls">
-    <button class="btn" id="leftBtn">⯇</button>
-    <button class="btn" id="rightBtn">⯈</button>
+    <button class="btn" id="leftBtn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18l-6-6 6-6" stroke="#000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="btn" id="rightBtn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 6l6 6-6 6" stroke="#000" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
   <div id="gameOverModal">
     <div id="gameOverText">Game Over! Final Score: 0</div>
     <button id="restartBtn">Restart</button>
   </div>
   <script>
-    const canvas = document.getElementById('gameCanvas');
+        const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const scoreDisplay = document.getElementById('score');
     const gameOverModal = document.getElementById('gameOverModal');
